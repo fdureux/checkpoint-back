@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const { makeResponse } = require("../util/routeHelper");
+const { makeResponse } = require("../helpers/routeHelper");
 const {
   getAllBooks,
   getBookById,
-  getBookByAuthor,
+  getBooksByAuthor,
   getBookByTitle,
   createBook,
   changeBook,
@@ -18,12 +18,17 @@ router.get("/", async (request, response) => {
 });
 
 router.get("/search", async (request, response) => {
-  const result = await getBookByTitle(request.query.genre);
+  const result = await getBookByTitle(request.query.title);
   makeResponse(response, result);
 });
 
 router.get("/:id", async (request, response) => {
   const result = await getBookById(request.params.id);
+  makeResponse(response, result);
+});
+
+router.get("/:author_id", async (request, response) => {
+  const result = await getBooksByAuthor(request.params.author_id);
   makeResponse(response, result);
 });
 
