@@ -6,6 +6,7 @@ const {
   getAllBookshelves,
   getBookshelfById,
   getBookshelvesByUser,
+  getBookshelvesStatByUser,
   createBookshelf,
   changeBookshelf,
 } = require("../controllers/bookshelves");
@@ -22,6 +23,11 @@ router.get("/:id", async (request, response) => {
 
 router.get("/users/:user_id", async (request, response) => {
   const result = await getBookshelvesByUser(request.params.user_id);
+  makeResponse(response, result);
+});
+
+router.get("/stats/users/:user_id", async (request, response) => {
+  const result = await getBookshelvesStatByUser(request.params.user_id);
   makeResponse(response, result);
 });
 

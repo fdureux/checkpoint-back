@@ -56,8 +56,24 @@ const getBookshelvesByUser = async (user_id) => {
   }
 };
 
+const getBookshelvesStatByUser = async (user_id) => {
+  try {
+    return {
+      json: (
+        await pool.query(
+          "SELECT u.username, u.avatar, bs.status, b.pages, b.author_id FROM bookshelf as bs JOIN user as u ON bs.user_id = u.id  JOIN book as b ON bs.book_id = b.id WHERE user_id = ?",
+          user_id
+        )
+      )[0],
+    };
+  } catch (error) {
+    return { error };
+  }
+};
+
 exports.getAllBookshelves = getAllBookshelves;
 exports.getBookshelfById = getBookshelfById;
 exports.getBookshelvesByUser = getBookshelvesByUser;
+exports.getBookshelvesStatByUser = getBookshelvesStatByUser;
 exports.createBookshelf = createBookshelf;
 exports.changeBookshelf = changeBookshelf;
