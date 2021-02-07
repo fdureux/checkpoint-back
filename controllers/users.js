@@ -32,9 +32,7 @@ const createUser = async (body) => {
 const changeUser = async (id, body) => {
   try {
     return {
-      json: (
-        await pool.query("UPDATE user SET ? WHERE id = ? ", [body, id])
-      )[0],
+      json: (await pool.query("UPDATE user SET ? WHERE id =?", [id, body]))[0],
     };
   } catch (error) {
     return { error };

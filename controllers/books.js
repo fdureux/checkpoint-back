@@ -8,6 +8,20 @@ const getAllBooks = async () => {
   }
 };
 
+const getAllBooksInfos = async () => {
+  try {
+    return {
+      json: (
+        await pool.query(
+          "SELECT b.id, b.title, b.pages, b.publication_date, b.summary, b.cover_picture, a.firstname, a.lastname FROM book as b JOIN author as a ON b.author_id = a.id"
+        )
+      )[0],
+    };
+  } catch (error) {
+    return { error };
+  }
+};
+
 const getBookById = async (id) => {
   try {
     return {
@@ -81,3 +95,4 @@ exports.createBook = createBook;
 exports.changeBook = changeBook;
 exports.deleteBook = deleteBook;
 exports.getBookByGenre = getBookByGenre;
+exports.getAllBooksInfos = getAllBooksInfos;

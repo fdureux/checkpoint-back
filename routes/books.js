@@ -4,9 +4,10 @@ const router = express.Router();
 const { makeResponse } = require("../helpers/routeHelper");
 const {
   getAllBooks,
+  getAllBooksInfos,
   getBookById,
   getBooksByAuthor,
-  getBookByTitle,
+  getBookByGenre,
   createBook,
   changeBook,
   deleteBook,
@@ -17,8 +18,13 @@ router.get("/", async (request, response) => {
   makeResponse(response, result);
 });
 
+router.get("/infos", async (request, response) => {
+  const result = await getAllBooksInfos();
+  makeResponse(response, result);
+});
+
 router.get("/search", async (request, response) => {
-  const result = await getBookByTitle(request.query.title);
+  const result = await getBookByGenre(request.query.title);
   makeResponse(response, result);
 });
 

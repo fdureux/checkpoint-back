@@ -46,7 +46,7 @@ const getBookshelvesByUser = async (user_id) => {
     return {
       json: (
         await pool.query(
-          "SELECT bs.user_id, bs.favorite, bs.status, bs.date_read, b.title FROM bookshelf as bs JOIN book as b ON bs.book_id = b.id WHERE user_id = ?",
+          "SELECT bs.user_id, bs.favorite, bs.status, bs.date_read, b.title, FROM bookshelf as bs JOIN book as b ON bs.book_id = b.id WHERE user_id = ?",
           user_id
         )
       )[0],
